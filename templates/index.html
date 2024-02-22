@@ -1,32 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask App</title>
+    <title>Review Questions | Ankigenerator</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
 </head>
-
 <body>
     <div class="container mt-5">
         <div class="card mt-3">
             <div class="card-body">
-                <form id="deckForm" method="POST" action="/submit">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="card-title">{{ data['name'] }}</h5>
-                    <button type="submit" class="btn btn-primary">Save Deck</button>
-                </div>
-                    {% for card in data['cards'] %}
+                <form id="deckForm" method="POST" action="/submit" enctype="multipart/form-data">
+                    <input type="hidden" name="topic" value="{{ data['topic'] }}">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title">{{ data['topic'] }}</h5>
+                        <button type="submit" class="btn btn-primary">Create Deck</button>
+                    </div>
+                    {% for question_answer in data['question_list'] %}
                     <div class="form-group">
-                        <label for="question{{ loop.index }}">Question: <input type="checkbox"
-                                id="checkbox{{ loop.index }}" checked></label>
+                        <label for="question{{ loop.index }}">Question: <input type="checkbox" id="checkbox-{{ loop.index }}" name="checkbox-{{ loop.index }}" checked></label>
                         <div class="question-answer">
-                            <div contenteditable="true" class="form-control" id="question{{ loop.index }}">{{
-                                card.question }}</div>
-                            <div contenteditable="true" class="form-control mt-2" id="answer{{ loop.index }}">{{
-                                card.answer }}</div>
+                            <textarea contenteditable="true" class="form-control" id="question-{{ loop.index }}" name="question-{{ loop.index }}">{{ question_answer.question }}</textarea>
+                            <textarea contenteditable="true" class="form-control mt-2" id="answer-{{ loop.index }}" name="answer-{{ loop.index }}">{{ question_answer.answer }}</textarea>
                         </div>
                         <div class="form-check mt-2 mb">
                         </div>
@@ -37,5 +32,4 @@
         </div>
     </div>
 </body>
-
 </html>

@@ -1,31 +1,37 @@
 from flask import Flask, render_template, request, send_file
 import json
 
+from api_code import generate_anki_deck, QuestionDeck, openai_parse_webpage,QuestionAnswer, generate_and_write_anki_deck
+
 
 app = Flask(__name__)
 
-# Load data for one deck with 10 questions from the JSON file
-with open("test.json", "r") as file:
-    data = json.load(file)
 
-
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template("index.html", data=data)
+    input_text = None
+    name = None
+    length = None
+    if request.method == "POST":
+        input_text = request.form["input_text"]
+        question_deck = openai_parse_webpage(input_text)
+        return render_template("index.html", data = question_deck)
+    return render_template("template.html", input_text=input_text, name=name, length=length)
 
 
 @app.route("/submit", methods=["POST"])
 def submit():
     # Parse the form data into a Deck object
-    form_data = request.form
-    deck_data = {
-        "title": form_data["title"],
-        "questions": form_data.getlist("questions"),
-    }
-    deck = Deck(**deck_data)
+    form_data = dict(request.form)
+    topic = form_data.pop("topic")
+    deck = QuestionDeck(topic, [])
+    for i in range(1, len(form_data.keys()) // 2 + 1):
+        question = form_data.get(f"question-{i}")
+        answer = form_data.get(f"answer-{i}")
+        deck.question_list.append(QuestionAnswer(question, answer))
 
     # Generate Anki deck
-    anki_deck = generate_anki_deck(deck)
+    anki_deck = generate_and_write_anki_deck(deck)
 
     # Save the Anki deck to a file
     deck_filename = "generated_deck.apkg"
