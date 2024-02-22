@@ -45,4 +45,3 @@ def generate_anki_deck(deck: Deck):
     output_file = f"{deck.name}.apkg"
     genanki.Package(anki_deck).write_to_file(output_file)
     print(f"Anki deck '{deck.name}' generated successfully. Output file: {output_file}")
-

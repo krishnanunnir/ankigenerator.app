@@ -1,7 +1,13 @@
 from flask import Flask, render_template, request, send_file
 import json
 
-from api_code import generate_anki_deck, QuestionDeck, openai_parse_webpage,QuestionAnswer, generate_and_write_anki_deck
+from api_code import (
+    generate_anki_deck,
+    openai_parse_webpage,
+    QuestionAnswer,
+    QuestionDeck,
+    generate_and_write_anki_deck,
+)
 
 
 app = Flask(__name__)
@@ -15,8 +21,10 @@ def index():
     if request.method == "POST":
         input_text = request.form["input_text"]
         question_deck = openai_parse_webpage(input_text)
-        return render_template("index.html", data = question_deck)
-    return render_template("template.html", input_text=input_text, name=name, length=length)
+        return render_template("index.html", data=question_deck)
+    return render_template(
+        "template.html", input_text=input_text, name=name, length=length
+    )
 
 
 @app.route("/submit", methods=["POST"])
