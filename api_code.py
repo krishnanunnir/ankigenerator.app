@@ -11,6 +11,7 @@ from os import environ
 from openai import OpenAI
 from pydantic.networks import HttpUrl
 import datetime
+from s3_utils import upload_to_s3, generate_donload_link
 
 logger = logging.getLogger(__name__)
 
@@ -115,9 +116,12 @@ def generate_anki_deck(question_deck: QuestionDeck):
     print(
         f"Anki deck '{question_deck.topic}' generated successfully. Output file: {output_file}"
     )
+    return output_file
 
 
 def generate_and_write_anki_deck(input_text: str):
     parsed = openai_parse_webpage(input_text)
-    generate_anki_deck(parsed)
-    return (parsed.topic, len(parsed.question_list))
+    output_file = generate_anki_deck(parsed)
+    upload_to_s3(output_file)
+    url = generate_donload_link(output_file)
+    return url

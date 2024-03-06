@@ -18,7 +18,7 @@
                     </div>
                     {% for question_answer in data['question_list'] %}
                     <div class="form-group">
-                        <label for="question{{ loop.index }}">Question: <input type="checkbox" id="checkbox-{{ loop.index }}" name="checkbox-{{ loop.index }}" checked></label>
+                        <label for="question{{ loop.index }}">Question: {{loop.index}} <input type="checkbox" id="checkbox-{{ loop.index }}" name="checkbox-{{ loop.index }}" checked></label>
                         <div class="question-answer">
                             <textarea contenteditable="true" class="form-control" id="question-{{ loop.index }}" name="question-{{ loop.index }}">{{ question_answer.question }}</textarea>
                             <textarea contenteditable="true" class="form-control mt-2" id="answer-{{ loop.index }}" name="answer-{{ loop.index }}">{{ question_answer.answer }}</textarea>

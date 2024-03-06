@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, send_file
 import json
 
 from api_code import (
-    generate_anki_deck,
     openai_parse_webpage,
     QuestionAnswer,
     QuestionDeck,
@@ -34,19 +33,16 @@ def submit():
     topic = form_data.pop("topic")
     deck = QuestionDeck(topic, [])
     for i in range(1, len(form_data.keys()) // 2 + 1):
-        question = form_data.get(f"question-{i}")
-        answer = form_data.get(f"answer-{i}")
-        deck.question_list.append(QuestionAnswer(question, answer))
+        if form_data.get(f"checklist-{i}", False):
+            question = form_data.get(f"question-{i}")
+            answer = form_data.get(f"answer-{i}")
+            deck.question_list.append(QuestionAnswer(question, answer))
 
     # Generate Anki deck
-    anki_deck = generate_and_write_anki_deck(deck)
-
-    # Save the Anki deck to a file
-    deck_filename = "generated_deck.apkg"
-    anki_deck.write_to_file(deck_filename)
+    url = generate_and_write_anki_deck(deck)
 
     # Provide a download link for the user
-    return render_template("download.html", filename=deck_filename)
+    return render_template("submitted_data.html", url=url)
 
 
 @app.route("/download/<filename>")
