@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, send_file
-import json
 
 from api_code import (
     openai_parse_webpage,
@@ -14,7 +13,7 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    input_text = None
+    input_text = ""
     name = None
     length = None
     if request.method == "POST":
