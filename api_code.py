@@ -9,7 +9,6 @@ from pydantic import BaseModel, Field
 import random
 from os import environ
 from openai import OpenAI
-from pydantic.networks import HttpUrl
 import datetime
 from s3_utils import upload_to_s3, generate_donload_link
 

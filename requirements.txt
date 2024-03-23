@@ -42,6 +42,7 @@ packaging==23.2
 pydantic==2.6.4
 pydantic_core==2.16.3
 python-dateutil==2.9.0.post0
+python-dotenv==1.0.1
 PyYAML==6.0.1
 requests==2.31.0
 s3transfer==0.10.1
