@@ -6,6 +6,31 @@
     <title>Text Processing App</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* CSS for loading animation */
+        /* HTML: <div class="loader"></div> */
+    
+        #disabledText {
+            display: none;
+        }
+    
+        #loading {
+            width: 0.6em;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 8px solid lightblue;
+            border-right-color: rgb(255, 255, 255);
+            animation: l2 1s infinite linear;
+            box-sizing: initial;
+            margin-right: 0.1em;
+        }
+    
+        @keyframes l2 {
+            to {
+                transform: rotate(1turn)
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -13,17 +38,39 @@
             <div class="col-md-8">
                 <div class="form-container">
                     <form id="textForm" method="POST" action="/">
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-primary" id="submitbutton">
+                                <div id="enabledText">
+                                    Create questions
+                                </div>
+                                <div id="disabledText">
+                                    <div class="d-flex align-items-center">
+                                        <div id="loading"></div>
+                                        Generating...
+                                    </div>
+                                </div>
+                        </div>
+                        </button>
+                        </div>
                         <div class="form-group">
                             <!-- Textarea field -->
                             <textarea class="form-control" name="input_text" id="input_text" cols="50" rows="25">{{ input_text }}</textarea>
-                        </div>
-                        <div class="form-group text-center">
-                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Loading animation -->
+    
+    <script>
+        document.getElementById('textForm').addEventListener('submit', function () {
+            // Show loading animation
+            document.getElementById('disabledText').style.display = 'block';
+            document.getElementById('enabledText').style.display = 'none';
+            document.getElementById('submitbutton').disabled = true;
+        });
+    </script>
+
 </body>
 </html>
