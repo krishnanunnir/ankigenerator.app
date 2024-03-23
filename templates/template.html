@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Processing App</title>
+    <title>Generate Anki Decks | Ankigenerator</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -41,6 +41,21 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Ankigenerator</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/pricing">Pricing</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -61,8 +76,10 @@
                         </div>
                         <div class="form-group">
                             <!-- Textarea field -->
-                            <textarea class="form-control" name="input_text" id="input_text" cols="50" rows="25">{{ input_text }}</textarea>
-                            <div id="charCount" class="text-muted mt-2">Characters: <span id="currentCount">0</span></div>
+                            <textarea class="form-control" name="input_text" id="input_text" cols="50"
+                                rows="25">{{ input_text }}</textarea>
+                            <div id="charCount" class="text-muted mt-2">Characters: <span
+                                    id="currentCount">0</span></div>
                             <div id="exceedLimitMessage" class="exceed-limit" style="display: none;">
                                 Text length exceeds 7000 characters. <a href="/pricing"
                                     target="_blank">Get
@@ -77,22 +94,22 @@
     <!-- Loading animation -->
 
     <script>
-                function handleInput() {
-                    var textLength = document.getElementById('input_text').value.length;
-                    var exceedLimitMessage = document.getElementById('exceedLimitMessage');
-                    var submitButton = document.getElementById('submitbutton');
-                    var charCount = document.getElementById('currentCount');
+        function handleInput() {
+            var textLength = document.getElementById('input_text').value.length;
+            var exceedLimitMessage = document.getElementById('exceedLimitMessage');
+            var submitButton = document.getElementById('submitbutton');
+            var charCount = document.getElementById('currentCount');
 
-                    // Update character count
-                    charCount.textContent = textLength;
-                    if (textLength > 7000) {
-                        exceedLimitMessage.style.display = 'block';
-                        submitButton.disabled = true;
-                    } else {
-                        exceedLimitMessage.style.display = 'none';
-                        submitButton.disabled = false;
-                    }
-                }
+            // Update character count
+            charCount.textContent = textLength;
+            if (textLength > 7000) {
+                exceedLimitMessage.style.display = 'block';
+                submitButton.disabled = true;
+            } else {
+                exceedLimitMessage.style.display = 'none';
+                submitButton.disabled = false;
+            }
+        }
         document.getElementById('textForm').addEventListener('submit', function () {
             // Show loading animation
             document.getElementById('disabledText').style.display = 'block';
@@ -101,11 +118,12 @@
         });
 
 
-    document.getElementById('input_text').addEventListener('input', handleInput);
+        document.getElementById('input_text').addEventListener('input', handleInput);
 
-    handleInput();
+        handleInput();
 
     </script>
 
 </body>
+
 </html>
