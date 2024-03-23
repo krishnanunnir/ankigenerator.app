@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +10,11 @@
     <style>
         /* CSS for loading animation */
         /* HTML: <div class="loader"></div> */
-    
+
         #disabledText {
             display: none;
         }
-    
+
         #loading {
             width: 0.6em;
             aspect-ratio: 1;
@@ -24,14 +25,21 @@
             box-sizing: initial;
             margin-right: 0.1em;
         }
-    
+
         @keyframes l2 {
             to {
                 transform: rotate(1turn)
             }
         }
+
+        .exceed-limit {
+            margin-top: 20px;
+            font-size: 14px;
+            color: red;
+        }
     </style>
 </head>
+
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -54,6 +62,11 @@
                         <div class="form-group">
                             <!-- Textarea field -->
                             <textarea class="form-control" name="input_text" id="input_text" cols="50" rows="25">{{ input_text }}</textarea>
+                            <div id="exceedLimitMessage" class="exceed-limit" style="display: none;">
+                                Text length exceeds 7000 characters. <a href="/pricing"
+                                    target="_blank">Get
+                                    premium version for larger context.</a>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -61,14 +74,33 @@
         </div>
     </div>
     <!-- Loading animation -->
-    
+
     <script>
+                function handleInput() {
+                    var textLength = document.getElementById('input_text').value.length;
+                    var exceedLimitMessage = document.getElementById('exceedLimitMessage');
+                    var submitButton = document.getElementById('submitbutton');
+
+                    if (textLength > 7000) {
+                        exceedLimitMessage.style.display = 'block';
+                        submitButton.disabled = true;
+                    } else {
+                        exceedLimitMessage.style.display = 'none';
+                        submitButton.disabled = false;
+                    }
+                }
         document.getElementById('textForm').addEventListener('submit', function () {
             // Show loading animation
             document.getElementById('disabledText').style.display = 'block';
             document.getElementById('enabledText').style.display = 'none';
             document.getElementById('submitbutton').disabled = true;
         });
+
+
+    document.getElementById('input_text').addEventListener('input', handleInput);
+
+    handleInput();
+
     </script>
 
 </body>
