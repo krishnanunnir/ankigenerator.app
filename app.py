@@ -48,6 +48,10 @@ def submit():
 def download(filename):
     return send_file(filename, as_attachment=True)
 
+@app.route("/pricing")
+def pricing():
+    return render_template("pricing_card.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
