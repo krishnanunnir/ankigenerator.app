@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, send_file
+import os
+from flask import send_from_directory
 
 from api_code import (
     openai_parse_webpage,
@@ -10,8 +12,12 @@ from api_code import (
 
 app = Flask(__name__)
 
+@app.route("/", methods=["GET"])
+def home():
+    return render_template("home.html")
 
-@app.route("/", methods=["GET", "POST"])
+
+@app.route("/editor", methods=["GET", "POST"])
 def index():
     input_text = ""
     name = None
@@ -48,9 +54,21 @@ def submit():
 def download(filename):
     return send_file(filename, as_attachment=True)
 
+
 @app.route("/pricing")
 def pricing():
     return render_template("pricing_card.html")
+
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(
+        os.path.join(app.root_path, "static"),
+        "favicon/favicon.ico",
+        mimetype="image/vnd.microsoft.icon",
+    )
+
+
 
 
 if __name__ == "__main__":

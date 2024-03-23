@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ankigenerator - AI-powered Flash Card Generator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+        }
+
+        .btn-subscribe {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Ankigenerator</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/editor">Editor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pricing">Pricing</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <!-- Your website logo -->
+                <img src="{{ url_for('static', filename='icon.png') }}" alt="Ankigenerator Logo" width="25%">
+                <!-- Title and description -->
+                <div class="title">Welcome to Ankigenerator</div>
+                <div class="description">Unlock the power of learning with flashcards made simple.</div>
+                <!-- Explanation of Flashcards -->
+                <div class="description">Flashcards have been a time-tested tool for effective learning. They help reinforce memory retention through active recall, making complex concepts easier to grasp.</div>
+                <!-- How Ankigenerator simplifies the process -->
+                <div class="description">Ankigenerator harnesses the magic of AI to streamline flashcard creation. With our intuitive platform, you can effortlessly generate flashcards from text, web pages, or even images.</div>
+            </div>
+        </div>
+    </div>
+    <!-- Button to try out the service -->
+    <div class="text-center mt-4">
+        <a href="/editor" class="btn btn-primary">Try it out</a>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

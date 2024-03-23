@@ -45,9 +45,35 @@
 </head>
 
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Ankigenerator</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/editor">Editor</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/pricing">Pricing</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
+                <!-- add icon.png in static folder over here -->
+                <img src={{ url_for('static', filename='icon.png') }} width="25%">
+
                 <div class="title">Choose the Right Plan for You</div>
                 <div class="description">Select the plan that suits your needs best and enjoy the benefits.</div>
                 <!-- add a bolded out comment about how our premium version is in the works and to include your email id if  you are interested in it -->
