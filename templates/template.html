@@ -62,6 +62,7 @@
                         <div class="form-group">
                             <!-- Textarea field -->
                             <textarea class="form-control" name="input_text" id="input_text" cols="50" rows="25">{{ input_text }}</textarea>
+                            <div id="charCount" class="text-muted mt-2">Characters: <span id="currentCount">0</span></div>
                             <div id="exceedLimitMessage" class="exceed-limit" style="display: none;">
                                 Text length exceeds 7000 characters. <a href="/pricing"
                                     target="_blank">Get
@@ -80,7 +81,10 @@
                     var textLength = document.getElementById('input_text').value.length;
                     var exceedLimitMessage = document.getElementById('exceedLimitMessage');
                     var submitButton = document.getElementById('submitbutton');
+                    var charCount = document.getElementById('currentCount');
 
+                    // Update character count
+                    charCount.textContent = textLength;
                     if (textLength > 7000) {
                         exceedLimitMessage.style.display = 'block';
                         submitButton.disabled = true;
