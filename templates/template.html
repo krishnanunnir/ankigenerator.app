@@ -41,7 +41,7 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Ankigenerator</a>
+        <a class="navbar-brand" href="/">Ankigenerator</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -49,9 +49,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link active" href="/">Editor</a>
                 </li>
@@ -66,7 +64,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="form-container">
-                    <form id="textForm" method="POST" action="/">
+                    <form id="textForm" method="POST" action="/editor">
                         <div class="form-group text-right">
                             <button type="submit" class="btn btn-primary" id="submitbutton">
                                 <div id="enabledText">
@@ -89,7 +87,7 @@
                                     <div id="charCount" class="text-muted">Characters: <span
                                         id="currentCount">0</span></div>
                                         <div id="exceedLimitMessage" class="exceed-limit" style="display: none;">
-                                            Text length exceeds 7000 characters. <a href="/pricing"
+                                            Text length exceeds 7000 characters limit. <a href="/pricing"
                                             target="_blank">Upgrade to premium?</a>
                                         </div>
                                 </div>
