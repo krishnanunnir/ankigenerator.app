@@ -96,14 +96,14 @@
                         <div class="col-md-8">
                             <!-- Text input field -->
                             <div class="form-group">
-                                <input type="text" class="form-control" id="text" name="text" placeholder="System design">
+                                <input type="text" class="form-control" id="text" name="text" placeholder="Eg. Programming" required >
                             </div>
                         </div>
                         <div class="col-md-4">
                             <!-- Submit button -->
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block" id="submitbutton">
-                                    <div id="enabledText">Create questions</div>
+                                <button type="submit" class="btn btn-primary btn-block" id="submitbutton" disabled>
+                                    <div id="enabledText">Generate</div>
                                     <div id="disabledText" style="display: none;">
                                         <div class="d-flex align-items-center">
                                             <div id="loading"></div>
@@ -125,15 +125,22 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        // on page load or refresh set the styles to default
-        document.getElementById('disabledText').style.display = 'none';
-        document.getElementById('enabledText').style.display = 'block';
+        function handleInput() {
+            var textLength = document.getElementById('text').value.length;
+            if (textLength > 0) {
+                document.getElementById('submitbutton').disabled = false;
+            } else {
+                document.getElementById('submitbutton').disabled = true;
+            }
+        }
         
         document.getElementById('textForm').addEventListener('submit', function () {
             // Show loading animation
             document.getElementById('disabledText').style.display = 'block';
             document.getElementById('enabledText').style.display = 'none';
         });
+        document.getElementById('text').addEventListener('input', handleInput);
+
     </script>
 </body>
 
