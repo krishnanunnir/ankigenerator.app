@@ -79,6 +79,42 @@ def openai_parse_webpage(input_text):
     return parsed
 
 
+def generate_quiz_for_topic(topic):
+    parser = PydanticOutputParser(pydantic_object=QuestionDeck)
+    text = """
+
+    I am currently learning the following topic {topic} and I want to learn more about it.
+
+    I am really curious about this topic and the concepts that it involves. I want you to generate questions and their answers
+    that will help me understand it better. I want you to ask me questions that will help me push my understanding of said topic better
+    it doesn't matter if I'm not capable of answering cause my goal is to learn more and more.
+
+    Ask as many questions as you can think of. I want to learn as much as possible from this.
+
+    I want atleast 20 questions and their answers.
+
+    Make the answers detailed and informative.
+
+    The question and answer format should be as follows:
+    {format_instructions}
+
+    """
+
+    prompt = ChatPromptTemplate(
+        messages=[HumanMessagePromptTemplate.from_template(text)],
+        input_variables=["topic"],
+        partial_variables={
+            "format_instructions": parser.get_format_instructions(),
+        },
+    )
+    llm = ChatOpenAI(temperature=0.9, model=model_3, openai_api_key=OPENAI_API_KEY)
+    input = prompt.format_prompt(topic=topic)
+    input.to_messages()
+    output = llm(input.to_messages())
+    parsed = parser.parse(output.content)
+    return parsed
+
+
 def generate_anki_deck(question_deck: QuestionDeck):
     model_id = random.randrange(1 << 30, 1 << 31)
     deck_id = random.randrange(1 << 30, 1 << 31)

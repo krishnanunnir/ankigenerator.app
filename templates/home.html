@@ -7,31 +7,47 @@
     <title>Ankigenerator - AI-powered Flash Card Generator</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tauri&family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
     <style>
-        .feature-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .feature-list li {
-            padding: 10px 0;
-        }
-
-        .btn-subscribe {
-            background-color: #007bff;
-            color: #fff;
-            border-color: #007bff;
-        }
-
         .title {
             font-size: 36px;
             font-weight: bold;
-            margin-bottom: 20px;
+            font-family: "Wix Madefor Text", sans-serif;
+            font-optical-sizing: auto;
         }
 
         .description {
             font-size: 18px;
             margin-bottom: 20px;
+            font-family: "Wix Madefor Text", sans-serif;
+            font-optical-sizing: auto;
+        }
+
+        #disabledText {
+            display: none;
+        }
+
+        #loading {
+            width: 0.6em;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 8px solid lightblue;
+            border-right-color: rgb(255, 255, 255);
+            animation: l2 1s infinite linear;
+            box-sizing: initial;
+            margin-right: 0.1em;
+        }
+
+        @keyframes l2 {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
@@ -48,9 +64,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/editor">Editor</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/pricing">Pricing</a>
                 </li>
             </ul>
@@ -59,28 +72,69 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8 text-center">
+            <div class="col-md-6">
                 <!-- Your website logo -->
-                <img src="{{ url_for('static', filename='icon.png') }}" alt="Ankigenerator Logo" width="25%">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='icon.png') }}" alt="Ankigenerator Logo" width="25%">
+                </div>
                 <!-- Title and description -->
-                <div class="title">Welcome to Ankigenerator</div>
-                <div class="description">Unlock the power of learning with flashcards.</div>
-                <!-- Explanation of Flashcards -->
-                <div class="description">Flashcards have been a time-tested tool for effective learning. They help reinforce memory retention through active recall, making complex concepts easier to grasp.</div>
-                <!-- How Ankigenerator simplifies the process -->
-                <div class="description">Ankigenerator harnesses the magic of AI to streamline flashcard creation. With our intuitive platform, you can effortlessly generate flashcards from text, web pages, or even images.</div>
+                <div>
+                    <h1 class="font-weight-bold text-center title">
+                        Generate an Anki deck in
+                        <br><span class="text-primary">30 seconds</span> with AI
+                    </h1>
+                </div>
+                <ul class="description ml-6 mt-4">
+                    <!-- Description as bullet points -->
+                    <li>Unlock the power of learning with Anki decks.</li>
+                    <li>Time-tested tools for effective learning</li>
+                    <li>Harness the power of AI to generate Anki decks quickly</li>
+                </ul>
+                <!-- Form for text input and button -->
+                <form id="textForm" method="POST" action="/topic_editor" class="mt-4">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <!-- Text input field -->
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="text" name="text" placeholder="System design">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <!-- Submit button -->
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block" id="submitbutton">
+                                    <div id="enabledText">Create questions</div>
+                                    <div id="disabledText" style="display: none;">
+                                        <div class="d-flex align-items-center">
+                                            <div id="loading"></div>
+                                            Generating...
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
-    <!-- Button to try out the service -->
-    <div class="text-center mt-4">
-        <a href="/editor" class="btn btn-primary">Try it out</a>
     </div>
 
     <!-- Bootstrap JS and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // on page load or refresh set the styles to default
+        document.getElementById('disabledText').style.display = 'none';
+        document.getElementById('enabledText').style.display = 'block';
+        
+        document.getElementById('textForm').addEventListener('submit', function () {
+            // Show loading animation
+            document.getElementById('disabledText').style.display = 'block';
+            document.getElementById('enabledText').style.display = 'none';
+        });
+    </script>
 </body>
 
 </html>

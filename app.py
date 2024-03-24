@@ -3,28 +3,28 @@ import os
 from flask import send_from_directory
 
 from api_code import (
-    openai_parse_webpage,
     QuestionAnswer,
     QuestionDeck,
     generate_and_write_anki_deck,
+    generate_quiz_for_topic,
 )
 
 
 app = Flask(__name__)
+
 
 @app.route("/", methods=["GET"])
 def home():
     return render_template("home.html")
 
 
-@app.route("/editor", methods=["GET", "POST"])
-def index():
-    input_text = ""
+@app.route("/topic_editor", methods=["GET", "POST"])
+def topic_editor():
     name = None
     length = None
     if request.method == "POST":
-        input_text = request.form["input_text"]
-        question_deck = openai_parse_webpage(input_text)
+        input_text = request.form["text"]
+        question_deck = generate_quiz_for_topic(topic=input_text)
         return render_template("index.html", data=question_deck)
     return render_template(
         "template.html", input_text=input_text, name=name, length=length
@@ -67,8 +67,6 @@ def favicon():
         "favicon/favicon.ico",
         mimetype="image/vnd.microsoft.icon",
     )
-
-
 
 
 if __name__ == "__main__":
